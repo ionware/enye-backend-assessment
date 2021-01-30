@@ -60,6 +60,6 @@ module.exports = async function ratesLoader(base = 'EUR') {
 
     return data.rates;
   } catch (error) {
-    throw new Error(`We cannot process ${base} base currency`);
+    throw new Error(`External API unable to process request. ${error.message}`);
   }
 };
