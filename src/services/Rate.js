@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 class Rate {
   /**
    * Constructor function.
@@ -6,7 +7,7 @@ class Rate {
    * @param {string} currency the currencies user want to have returned.
    * @param {function} loader the mechnasim used to fetch currency rates
    */
-  constructor(base = 'EUR', currency = null, loader) {
+  constructor(loader, base = 'EUR', currency = null) {
     this.base = base;
 
     // currency must be typeof string.
@@ -25,9 +26,13 @@ class Rate {
     this.loader = loader;
   }
 
+  /**
+   * Get whatever rate was fetched.
+   */
   get() {
     if (!this.currency) return this.rates;
 
+    // Select only currency rate(s) requested.
     return this.currency
       .split(',')
       .map((currency) => currency.trim().toUpperCase())
@@ -40,7 +45,10 @@ class Rate {
       );
   }
 
-  async getRatesLoader() {
+  /**
+   * Load rates from loader.
+   */
+  async loadRates() {
     // get rates from API exchange
     const result = await this.loader(this.base);
 
@@ -49,6 +57,8 @@ class Rate {
       throw new Error('Invalid value for rate returned from rate Loader.');
 
     this.rates = result;
+
+    return this;
   }
 }
 
