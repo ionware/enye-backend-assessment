@@ -33,11 +33,11 @@ Sorry, I cannot provide a Open API specification guide (fka Swagger doc) for thi
 {
   "results": {
     "base": "EUR",
-    "date": "2021-01-30"
+    "date": "2021-01-30",
     "rates": {
       "CZK": 0.35457343,
       "INR": 1.2477434,
-      ... and more
+      // ... and more
     }
   }
 }
