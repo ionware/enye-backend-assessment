@@ -29,7 +29,7 @@ Sorry, I cannot provide a Open API specification guide (fka Swagger doc) for thi
 
 <p>`GET /api/rates` request to the server, and your expected response will be in the format described below
 
-```json
+```json5
 {
   "results": {
     "base": "EUR",
