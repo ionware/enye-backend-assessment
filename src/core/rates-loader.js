@@ -51,11 +51,15 @@ module.exports = async function ratesLoader(base = 'EUR') {
 
   const URL = `https://api.exchangeratesapi.io/latest?base=${base}`;
 
-  const { data } = await axios.get(URL); // get rates from API in currency base,
-  if (!data.rates) throw new Error('Unrecognized currency base.');
+  try {
+    const { data } = await axios.get(URL); // get rates from API in currency base,
+    if (!data.rates) throw new Error('Unrecognized currency base.');
 
-  // save to cache for future optimization
-  saveRatesToCache(base, data.rates);
+    // save to cache for future optimization
+    saveRatesToCache(base, data.rates);
 
-  return data.rates;
+    return data.rates;
+  } catch (error) {
+    throw new Error(`We cannot process ${base} base currency`);
+  }
 };
