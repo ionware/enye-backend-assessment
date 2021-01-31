@@ -30,12 +30,18 @@ function resolveRatesFromCache(base) {
  */
 function saveRatesToCache(base, data) {
   const filePath = path.resolve(__dirname, '../../_cache', `${base}-${getISODate()}.json`);
-  // check for cache existence.
-  if (fs.existsSync(filePath)) return null;
 
-  // write to cache.
-  fs.writeFileSync(filePath, JSON.stringify(data));
-  return true;
+  // HACK: prevent Heroku from spazzing out
+  try {
+    // check for cache existence.
+    if (fs.existsSync(filePath)) return null;
+
+    // write to cache.
+    fs.writeFileSync(filePath, JSON.stringify(data));
+    return true;
+  } catch {
+    return null;
+  }
 }
 
 /**
